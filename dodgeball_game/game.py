@@ -54,13 +54,21 @@ class Game:
 
     def update(self):
         pressed_keys = pygame.key.get_pressed()
-        arena_rect = pygame.Rect(0,0, self.screen_width, self.screen_height) #arena boundaries
-        self.player1.move(pressed_keys, arena_rect)
-        self.player1.rotate(pressed_keys)
-        self.player2.move(pressed_keys, arena_rect)
-        self.player2.rotate(pressed_keys)
-        self.space.step(1/FPS)
+        arena_rect = pygame.Rect(0, 0, self.screen_width, self.screen_height)
 
+        # Update player positions and rotations
+        self.player1.move(pressed_keys)
+        self.player1.rotate(pressed_keys)
+        self.player1.clamp_within_arena(arena_rect)
+
+        self.player2.move(pressed_keys)
+        self.player2.rotate(pressed_keys)
+        self.player2.clamp_within_arena(arena_rect)
+
+        # Step the physics space
+        self.space.step(1 / 60)
+
+        
     def draw(self):
         self.screen.fill(GRAY)
         self.player1.draw(self.screen)
