@@ -1,5 +1,7 @@
 import pygame
 import math
+from ball import Ball
+from constants import *
 
 class Player:
     def __init__(self, x, y, color, controls):
@@ -13,7 +15,7 @@ class Player:
         # self.surface.fill((0,0,0)) #transparent background
         # pygame.draw.rect(self.surface, color, (0,0,100,200))
         # self.rect = self.surface.get_rect(center=(x,y))
-        self.balls = []
+        #self.balls = []
 
     
     def move(self, pressed_keys):
@@ -79,3 +81,28 @@ class Player:
         for vertex in self.get_rotated_vertices():
             pygame.draw.circle(screen, (255, 0, 0), (int(vertex[0]), int(vertex[1])), 3)
     
+    def shoot(self):
+        # Create a ball in the direction the player is facing
+        x, y = self.rect.center 
+        direction = self.angle  # Use player's current angle
+        ball = Ball(x, y, direction, WHITE, speed=15)
+        return ball
+    
+    def collides_with(self, ball):
+        # Use the player's rectangle for collision
+        player_rect = pygame.Rect(
+            self.rect.left, 
+            self.rect.top, 
+            self.rect.width, 
+            self.rect.height
+        )
+        
+        # Create a rectangle for the ball
+        ball_rect = pygame.Rect(
+            ball.x - ball.radius, 
+            ball.y - ball.radius, 
+            ball.radius * 2, 
+            ball.radius * 2
+        )
+        
+        return player_rect.colliderect(ball_rect)

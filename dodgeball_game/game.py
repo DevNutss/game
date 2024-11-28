@@ -65,10 +65,31 @@ class Game:
         self.player2.rotate(pressed_keys)
         self.player2.clamp_within_arena(arena_rect)
 
+         # Handle shooting
+        if pressed_keys[pygame.K_RETURN]:  # Player 1 shoots
+            ball = self.player1.shoot()
+            if ball:
+                self.balls.append(ball)
+
+        if pressed_keys[pygame.K_SPACE]:  # Player 2 shoots
+            ball = self.player2.shoot()
+            if ball:
+                self.balls.append(ball)
+
+        # Update balls
+        for ball in self.balls:
+            if self.player1.collides_with(ball):
+                print("Player 1 hit!")
+                self.balls.remove(ball)
+            elif self.player2.collides_with(ball):
+                print("Player 2 hit!")
+                self.balls.remove(ball)
+
+
         # Step the physics space
         self.space.step(1 / 60)
 
-        
+
     def draw(self):
         self.screen.fill(GRAY)
         self.player1.draw(self.screen)
