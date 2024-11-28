@@ -1,3 +1,13 @@
-#Screen dimensions
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 960
+#colors
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+GREEN = (20,180,55)
+GRAY = (120,120,125)
+BLUE = (0,0,255)
+RED = (255,0,0)
+
+# Game settings
+FPS = 60
+BALL_RADIUS = 20
+PLAYER_SIZE = (100,200)
+BALL_SPEED = 10
