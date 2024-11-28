@@ -2,3 +2,6 @@
 *.exe
 *.json
 .venv*
+
+#folders
+__pycache__
