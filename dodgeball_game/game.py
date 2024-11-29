@@ -27,12 +27,12 @@ class Game:
             'left': pygame.K_a, 
             'right': pygame.K_d
             })
-        self.player2 = Player(self.screen_width-100, self.screen_height//2, RED, {
-            'up': pygame.K_UP, 
-            'down': pygame.K_DOWN, 
-            'left': pygame.K_LEFT, 
+        self.player2 = Player(self.screen_width - 100, self.screen_height // 2, RED, {
+            'up': pygame.K_UP,
+            'down': pygame.K_DOWN,
+            'left': pygame.K_LEFT,
             'right': pygame.K_RIGHT
-            })
+            }, starting_angle=180)  # Face left by default
         self.balls = []
 
     def run(self):
@@ -51,13 +51,12 @@ class Game:
                 self.screen_width, self.screen_height = event.w, event.h
                 self.screen = pygame.display.set_mode((self.screen_width, self.screen_height), pygame.RESIZABLE)
                 self.arena = Arena(self.space, self.screen_width, self.screen_height) #update boundaries
-
-        # Handle continuous key presses for shooting
-        pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_RETURN]:  # Player 1 shoots
-            self.balls.append(self.player1.shoot())
-        if pressed_keys[pygame.K_SPACE]:  # Player 2 shoots
-            self.balls.append(self.player2.shoot())
+            if event.type==pygame.KEYDOWN:
+                # Handle continuous key presses for shooting
+                if event.key==pygame.K_SPACE:  # Player 1 shoots
+                    self.balls.append(self.player1.shoot())
+                if event.key==pygame.K_RETURN:  # Player 2 shoots
+                    self.balls.append(self.player2.shoot())
 
     def update(self):
         pressed_keys = pygame.key.get_pressed()

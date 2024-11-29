@@ -4,10 +4,10 @@ from ball import Ball
 from constants import *
 
 class Player:
-    def __init__(self, x, y, color, controls):
+    def __init__(self, x, y, color, controls, starting_angle=0):
         self.color = color
         self.controls = controls #keys => movement's player
-        self.angle = 0
+        self.angle = starting_angle
         self.original_width = 40
         self.original_height = 100
         self.rect = pygame.Rect(0,0, self.original_width, self.original_height)
@@ -79,14 +79,17 @@ class Player:
 
        
     def shoot(self):
-        # Create a ball slightly in front of the player's current position
+        # Ball spawns slightly in front of the player
         angle_rad = math.radians(self.angle)
+
         offset_x = math.cos(angle_rad) * 50  # 50 pixels in front of the player
         offset_y = -math.sin(angle_rad) * 50  # Negative because screen Y increases downward
 
         ball_x = self.rect.centerx + offset_x
         ball_y = self.rect.centery + offset_y
-        return Ball(ball_x, ball_y, self.angle, WHITE, speed=15)
+
+        return Ball(ball_x, ball_y, math.degrees(angle_rad), WHITE)
+    
     
     def collides_with(self, ball):
         # Use the player's rectangle for collision

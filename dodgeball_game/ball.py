@@ -4,17 +4,18 @@ import math
 import random
 
 class Ball:
-    def __init__(self, x, y, direction, color, speed=10, radius=10):
-        self.body = pymunk.Body()
-        self.body.position = x, y 
+    def __init__(self, x, y, angle, color, speed=10):
         self.x = x
         self.y = y
-        self.direction = direction  # Angle in degrees
+        self.angle = angle
         self.color = color
+        self.radius = 10
         self.speed = speed
-        self.radius = radius
-        self.dx = math.cos(math.radians(self.direction)) * self.speed
-        self.dy = math.sin(math.radians(self.direction)) * self.speed
+
+        # Compute movement vector
+        angle_rad = math.radians(angle)
+        self.dx = math.cos(angle_rad) * speed
+        self.dy = -math.sin(angle_rad) * speed  # Negative because screen Y increases downward
 
     
     def move(self):
@@ -26,9 +27,13 @@ class Ball:
 
     def handle_collision(self, arena_width, arena_height):
         # Rebound off walls
-        if self.x - self.radius <= 0 or self.x + self.radius >= arena_width:
-            self.dx = -self.dx
-            self.dx += random.uniform(-1, 1)  # Add random direction change
-        if self.y - self.radius <= 0 or self.y + self.radius >= arena_height:
-            self.dy = -self.dy
-            self.dy += random.uniform(-1, 1)  # Add random direction change
+        if self.x - self.radius < 0 or self.x + self.radius > arena_width:
+            self.dx *= -1
+        if self.y - self.radius < 0 or self.y + self.radius > arena_height:
+            self.dy *= -1
+        # if self.x - self.radius <= 0 or self.x + self.radius >= arena_width:
+        #     self.dx = -self.dx
+        #     self.dx += random.uniform(-1, 1)  # Add random direction change
+        # if self.y - self.radius <= 0 or self.y + self.radius >= arena_height:
+        #     self.dy = -self.dy
+        #     self.dy += random.uniform(-1, 1)  # Add random direction change
