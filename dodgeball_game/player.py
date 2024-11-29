@@ -79,11 +79,14 @@ class Player:
 
        
     def shoot(self):
-        # Create a ball in the direction the player is facing
-        x, y = self.rect.center 
-        direction = self.angle  # Use player's current angle
-        ball = Ball(x, y, direction, WHITE, speed=15)
-        return ball
+        # Create a ball slightly in front of the player's current position
+        angle_rad = math.radians(self.angle)
+        offset_x = math.cos(angle_rad) * 50  # 50 pixels in front of the player
+        offset_y = -math.sin(angle_rad) * 50  # Negative because screen Y increases downward
+
+        ball_x = self.rect.centerx + offset_x
+        ball_y = self.rect.centery + offset_y
+        return Ball(ball_x, ball_y, self.angle, WHITE, speed=15)
     
     def collides_with(self, ball):
         # Use the player's rectangle for collision

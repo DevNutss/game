@@ -52,6 +52,13 @@ class Game:
                 self.screen = pygame.display.set_mode((self.screen_width, self.screen_height), pygame.RESIZABLE)
                 self.arena = Arena(self.space, self.screen_width, self.screen_height) #update boundaries
 
+        # Handle continuous key presses for shooting
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_RETURN]:  # Player 1 shoots
+            self.balls.append(self.player1.shoot())
+        if pressed_keys[pygame.K_SPACE]:  # Player 2 shoots
+            self.balls.append(self.player2.shoot())
+
     def update(self):
         pressed_keys = pygame.key.get_pressed()
         arena_rect = pygame.Rect(0, 0, self.screen_width, self.screen_height)
@@ -65,19 +72,13 @@ class Game:
         self.player2.rotate(pressed_keys)
         self.player2.clamp_within_arena(arena_rect)
 
-         # Handle shooting
-        if pressed_keys[pygame.K_RETURN]:  # Player 1 shoots
-            ball = self.player1.shoot()
-            if ball:
-                self.balls.append(ball)
-
-        if pressed_keys[pygame.K_SPACE]:  # Player 2 shoots
-            ball = self.player2.shoot()
-            if ball:
-                self.balls.append(ball)
 
         # Update balls
         for ball in self.balls:
+            ball.move()
+            ball.handle_collision(self.screen_width, self.screen_height)
+
+            # Check for collisions with players
             if self.player1.collides_with(ball):
                 print("Player 1 hit!")
                 self.balls.remove(ball)

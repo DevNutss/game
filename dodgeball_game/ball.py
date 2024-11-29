@@ -4,7 +4,7 @@ import math
 import random
 
 class Ball:
-    def __init__(self, x, y, direction, color, speed=2, radius=10):
+    def __init__(self, x, y, direction, color, speed=10, radius=10):
         self.body = pymunk.Body()
         self.body.position = x, y 
         self.x = x
