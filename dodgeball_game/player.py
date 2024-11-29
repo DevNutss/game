@@ -77,10 +77,7 @@ class Player:
         rotated_rect = rotated_surface.get_rect(center=self.rect.center)
         screen.blit(rotated_surface, rotated_rect)
 
-        # Debug: Draw the rotated rectangle vertices
-        for vertex in self.get_rotated_vertices():
-            pygame.draw.circle(screen, (255, 0, 0), (int(vertex[0]), int(vertex[1])), 3)
-    
+       
     def shoot(self):
         # Create a ball in the direction the player is facing
         x, y = self.rect.center 
