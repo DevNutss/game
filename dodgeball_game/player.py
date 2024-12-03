@@ -82,9 +82,9 @@ class Player:
         # Ball spawns slightly in front of the player
         angle_rad = math.radians(self.angle)
 
-        offset_x = math.cos(angle_rad) * 50  # 50 pixels in front of the player
-        offset_y = -math.sin(angle_rad) * 50  # Negative because screen Y increases downward
-
+          # Calculate the offset for the ball spawn position
+        offset_x = math.cos(angle_rad) * (self.original_height // 2 + 10)  # Slightly beyond the player's edge
+        offset_y = -math.sin(angle_rad) * (self.original_height // 2 + 10)  # Negative for upward direction
         ball_x = self.rect.centerx + offset_x
         ball_y = self.rect.centery + offset_y
 
