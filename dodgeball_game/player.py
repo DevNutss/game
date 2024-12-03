@@ -88,7 +88,8 @@ class Player:
         ball_x = self.rect.centerx + offset_x
         ball_y = self.rect.centery + offset_y
 
-        return Ball(ball_x, ball_y, math.degrees(angle_rad), WHITE)
+        ball_color = self.color #use player's color for balls 
+        return Ball(ball_x, ball_y, math.degrees(angle_rad), ball_color)
     
     
     def collides_with(self, ball):

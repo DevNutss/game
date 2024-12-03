@@ -31,9 +31,3 @@ class Ball:
             self.dx *= -1
         if self.y - self.radius < 0 or self.y + self.radius > arena_height:
             self.dy *= -1
-        # if self.x - self.radius <= 0 or self.x + self.radius >= arena_width:
-        #     self.dx = -self.dx
-        #     self.dx += random.uniform(-1, 1)  # Add random direction change
-        # if self.y - self.radius <= 0 or self.y + self.radius >= arena_height:
-        #     self.dy = -self.dy
-        #     self.dy += random.uniform(-1, 1)  # Add random direction change
