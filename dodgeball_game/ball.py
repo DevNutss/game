@@ -4,13 +4,14 @@ import math
 import random
 
 class Ball:
-    def __init__(self, x, y, angle, color, speed=10):
+    def __init__(self, x, y, angle, color,shooter, speed=10):
         self.x = x
         self.y = y
         self.angle = angle
         self.color = color
         self.radius = 10
         self.speed = speed
+        self.shooter = shooter #which shooter shot the ball 
 
         # Compute movement vector
         angle_rad = math.radians(angle)

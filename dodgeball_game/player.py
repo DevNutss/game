@@ -89,17 +89,12 @@ class Player:
         ball_y = self.rect.centery + offset_y
 
         ball_color = self.color #use player's color for balls 
-        return Ball(ball_x, ball_y, math.degrees(angle_rad), ball_color)
+        return Ball(ball_x, ball_y, math.degrees(angle_rad), ball_color, self)
     
     
     def collides_with(self, ball):
         # Use the player's rectangle for collision
-        player_rect = pygame.Rect(
-            self.rect.left, 
-            self.rect.top, 
-            self.rect.width, 
-            self.rect.height
-        )
+        player_rect = self.rect
         
         # Create a rectangle for the ball
         ball_rect = pygame.Rect(
@@ -109,4 +104,4 @@ class Player:
             ball.radius * 2
         )
         
-        return player_rect.colliderect(ball_rect)
+        return player_rect.colliderect(ball_rect) and ball.shooter != self #prevent self_collision
