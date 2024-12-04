@@ -8,6 +8,4 @@ RED = (255,0,0)
 
 # Game settings
 FPS = 60
-BALL_RADIUS = 20
-PLAYER_SIZE = (100,200)
-BALL_SPEED = 10
+

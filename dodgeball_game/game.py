@@ -2,7 +2,6 @@ import pygame
 import pymunk
 from arena import Arena
 from player import Player
-from ball import Ball
 from constants import *
 
 
