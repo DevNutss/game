@@ -12,10 +12,16 @@ class Player:
         self.original_height = 100
         self.rect = pygame.Rect(0,0, self.original_width, self.original_height)
         self.rect.center = (x,y)
-        # self.surface.fill((0,0,0)) #transparent background
-        # pygame.draw.rect(self.surface, color, (0,0,100,200))
-        # self.rect = self.surface.get_rect(center=(x,y))
-        #self.balls = []
+        self.lives = 3 #start with 3 lives
+
+    def draw_hearts(self, screen, x_offset, y_offset):
+
+        heart_image = pygame.image.load("dodgeball_game\heart.jpg") 
+        heart_image = pygame.transform.scale(heart_image, (30, 30))  # Scale the heart image
+
+        for i in range(self.lives):
+            screen.blit(heart_image, (x_offset + i * 35, y_offset))
+        
 
     
     def move(self, pressed_keys):
